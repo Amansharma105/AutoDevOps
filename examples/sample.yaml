@@ -1,0 +1,16 @@
+resources:
+  - name: web-server
+    type: web_server
+    provider: aws
+    region: ap-south-1
+    instance_type: t2.micro
+
+  - name: application-database
+    type: database
+    provider: aws
+    region: ap-south-1
+
+  - name: application-network
+    type: network
+    provider: aws
+    region: ap-south-1
