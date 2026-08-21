@@ -7,5 +7,6 @@ def test_command_runner():
 
     result = runner.run("echo AutoDevOps")
 
-    assert result["returncode"] == 0
-    assert "AutoDevOps" in result["stdout"]
+    assert result.success is True
+    assert result.returncode == 0
+    assert "AutoDevOps" in result.stdout
