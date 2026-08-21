@@ -1,0 +1,26 @@
+terraform {
+  required_providers {
+    aws = {
+      source = "hashicorp/aws"
+    }
+  }
+}
+
+provider "aws" {
+  region = "{{ provider.region }}"
+}
+
+{% for resource in resources %}
+
+{% if resource.type == "web_server" %}
+resource "aws_instance" "{{ resource.name | replace("-", "_") }}" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "{{ resource.instance_type | default('t2.micro') }}"
+
+  tags = {
+    Name = "{{ resource.name }}"
+  }
+}
+{% endif %}
+
+{% endfor %}
