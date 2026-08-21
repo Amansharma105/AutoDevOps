@@ -4,6 +4,7 @@ from parser.yaml_parser import load_yaml
 from schemas.validator import validate_config
 from generators.terraform_generator import TerraformGenerator
 from generators.ansible_generator import AnsibleGenerator
+from executor.deployment_manager import DeploymentManager
 from logs.logger import get_logger
 
 app = typer.Typer(
@@ -26,20 +27,18 @@ def validate(file: str):
                 "✓ Configuration is valid.",
                 fg=typer.colors.GREEN
             )
-            logger.info("Configuration validated successfully: %s", file)
+            logger.info("Configuration validated: %s", file)
         else:
             typer.secho(
                 f"✗ {message}",
                 fg=typer.colors.RED
             )
-            logger.error("Configuration validation failed: %s", file)
 
     except (FileNotFoundError, ValueError) as error:
         typer.secho(
             f"✗ Error: {error}",
             fg=typer.colors.RED
         )
-        logger.error("Validation error: %s", error)
 
 
 @app.command()
@@ -47,10 +46,10 @@ def generate(
     file: str,
     target: str = typer.Option(
         "terraform",
-        help="Target generator: terraform or ansible"
+        help="Target: terraform or ansible"
     )
 ):
-    """Generate Infrastructure as Code from a YAML file."""
+    """Generate Infrastructure as Code."""
 
     try:
         config = load_yaml(file)
@@ -66,11 +65,13 @@ def generate(
 
         if target == "terraform":
             generator = TerraformGenerator()
+
         elif target == "ansible":
             generator = AnsibleGenerator()
+
         else:
             typer.secho(
-                "✗ Unsupported target. Use terraform or ansible.",
+                "✗ Unsupported target.",
                 fg=typer.colors.RED
             )
             return
@@ -83,7 +84,7 @@ def generate(
         )
 
         logger.info(
-            "Generated %s configuration: %s",
+            "Generated %s: %s",
             target,
             output_file
         )
@@ -93,7 +94,47 @@ def generate(
             f"✗ Error: {error}",
             fg=typer.colors.RED
         )
-        logger.error("Generation error: %s", error)
+
+
+@app.command()
+def terraform_validate(
+    directory: str = "output/terraform"
+):
+    """Validate generated Terraform configuration."""
+
+    manager = DeploymentManager()
+
+    result = manager.validate_terraform(directory)
+
+    if result["returncode"] == 0:
+        typer.secho(
+            "✓ Terraform configuration is valid.",
+            fg=typer.colors.GREEN
+        )
+    else:
+        typer.secho(
+            result["stderr"],
+            fg=typer.colors.RED
+        )
+
+
+@app.command()
+def terraform_plan(
+    directory: str = "output/terraform"
+):
+    """Create a Terraform execution plan."""
+
+    manager = DeploymentManager()
+
+    result = manager.plan_terraform(directory)
+
+    typer.echo(result["stdout"])
+
+    if result["returncode"] != 0:
+        typer.secho(
+            result["stderr"],
+            fg=typer.colors.RED
+        )
 
 
 @app.command()
