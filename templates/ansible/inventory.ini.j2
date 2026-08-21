@@ -1,0 +1,6 @@
+[web_servers]
+{% for resource in resources %}
+{% if resource.type == "web_server" %}
+{{ resource.name }}
+{% endif %}
+{% endfor %}
