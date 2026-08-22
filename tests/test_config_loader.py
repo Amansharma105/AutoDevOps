@@ -10,3 +10,11 @@ def test_config_loader():
     assert isinstance(config, dict)
     assert "resources" in config
     assert len(config["resources"]) > 0
+
+
+def test_supported_extensions():
+
+    loader = ConfigLoader()
+
+    assert ".yaml" in loader.SUPPORTED_EXTENSIONS
+    assert ".yml" in loader.SUPPORTED_EXTENSIONS
