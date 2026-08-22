@@ -8,6 +8,29 @@ class AnsibleExecutor:
         self.runner = CommandRunner()
 
     def ping(self, inventory):
+        """Check connectivity with Ansible hosts."""
+
         return self.runner.run(
-            f"ansible all -i {inventory} -m ping"
+            [
+                "ansible",
+                "all",
+                "-i",
+                inventory,
+                "-m",
+                "ping"
+            ]
         )
+
+    def check_playbook(self, playbook, inventory=None):
+        """Check an Ansible playbook without executing it."""
+
+        command = [
+            "ansible-playbook",
+            "--syntax-check",
+            playbook
+        ]
+
+        if inventory:
+            command.extend(["-i", inventory])
+
+        return self.runner.run(command)
