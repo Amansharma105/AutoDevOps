@@ -46,6 +46,16 @@ def test_summary():
     assert "Total resources:" in result.stdout
 
 
+def test_health():
+    result = runner.invoke(
+        app,
+        ["health"]
+    )
+
+    assert result.exit_code == 0
+    assert "project structure is ready" in result.stdout
+
+
 def test_list_output():
     result = runner.invoke(
         app,
