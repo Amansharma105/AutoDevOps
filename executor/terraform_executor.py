@@ -1,4 +1,4 @@
-from executor.command_runner import CommandRunner
+ from executor.command_runner import CommandRunner
 
 
 class TerraformExecutor:
@@ -9,15 +9,15 @@ class TerraformExecutor:
 
     def init(self, directory):
         return self.runner.run(
-            f"terraform -chdir={directory} init"
+            ["terraform", f"-chdir={directory}", "init"]
         )
 
     def validate(self, directory):
         return self.runner.run(
-            f"terraform -chdir={directory} validate"
+            ["terraform", f"-chdir={directory}", "validate"]
         )
 
     def plan(self, directory):
         return self.runner.run(
-            f"terraform -chdir={directory} plan"
+            ["terraform", f"-chdir={directory}", "plan"]
         )
