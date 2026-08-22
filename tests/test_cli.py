@@ -36,6 +36,16 @@ def test_invalid_file():
     assert "Error" in result.stdout
 
 
+def test_summary():
+    result = runner.invoke(
+        app,
+        ["summary", "examples/sample.yaml"]
+    )
+
+    assert result.exit_code == 0
+    assert "Total resources:" in result.stdout
+
+
 def test_list_output():
     result = runner.invoke(
         app,
