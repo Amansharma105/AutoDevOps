@@ -1,9 +1,9 @@
 
-## AutoDevOps
+# AutoDevOps
 
 AutoDevOps is a Python-based Infrastructure as Code (IaC) automation tool that helps validate infrastructure configurations, generate Terraform and Ansible files, manage generated output, and provide basic infrastructure execution support through a CLI.
 
-# Features
+## Features
 
 - YAML configuration loading
 - Infrastructure configuration validation
@@ -19,7 +19,7 @@ AutoDevOps is a Python-based Infrastructure as Code (IaC) automation tool that h
 - Automated testing
 - Command-line interface using Typer
 
-Project Structure
+## Project Structure
 
 AutoDevOps/
 │
@@ -85,7 +85,7 @@ AutoDevOps/
 ├── requirements.txt
 └── README.md
 
-Technologies Used
+## Technologies Used
 
 - Python
 - Typer
@@ -97,7 +97,7 @@ Technologies Used
 - Ansible
 - Pytest
 
-Configuration
+## Configuration
 
 Infrastructure configuration is provided using YAML files.
 
@@ -116,7 +116,7 @@ The sample configuration is available at:
 
 examples/sample.yaml
 
-Workflow
+## Workflow
 
 YAML Configuration
         ↓
@@ -150,7 +150,7 @@ The "OutputManager" provides functionality to:
 - List generated files
 - Clear generated files
 
-##Execution Handling
+## Execution Handling
 
 The project uses "CommandRunner" to execute infrastructure commands.
 
@@ -163,7 +163,7 @@ Every command produces an "ExecutionResult" containing:
 
 This makes command execution easier to handle and maintain.
 
-##Logging
+## Logging
 
 AutoDevOps includes a logging system for important operations such as:
 
@@ -173,7 +173,7 @@ AutoDevOps includes a logging system for important operations such as:
 - Ansible operations
 - Deployment-related errors
 
-##Project Goals
+## Project Goals
 
 The main goals of AutoDevOps are:
 
@@ -184,11 +184,12 @@ The main goals of AutoDevOps are:
 5. Provide a simple command-line interface.
 6. Make infrastructure automation easier to maintain.
 
-##Version
+## Version
 
 AutoDevOps v1.0.0
 
-###Author
+## Author
 
-##Aman Sharma
+### Aman Sharma
 
+B.Tech Computer Science & Engineering
