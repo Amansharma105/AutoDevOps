@@ -7,7 +7,10 @@ runner = CliRunner()
 
 
 def test_version():
-    result = runner.invoke(app, ["version"])
+    result = runner.invoke(
+        app,
+        ["version"]
+    )
 
     assert result.exit_code == 0
     assert "AutoDevOps v1.0.0" in result.stdout
@@ -31,3 +34,21 @@ def test_invalid_file():
 
     assert result.exit_code == 0
     assert "Error" in result.stdout
+
+
+def test_list_output():
+    result = runner.invoke(
+        app,
+        ["list-output"]
+    )
+
+    assert result.exit_code == 0
+
+
+def test_clear_output():
+    result = runner.invoke(
+        app,
+        ["clear-output", "terraform"]
+    )
+
+    assert result.exit_code == 0
