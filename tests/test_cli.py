@@ -7,7 +7,6 @@ runner = CliRunner()
 
 
 def test_version():
-
     result = runner.invoke(app, ["version"])
 
     assert result.exit_code == 0
@@ -15,7 +14,6 @@ def test_version():
 
 
 def test_validate_sample():
-
     result = runner.invoke(
         app,
         ["validate", "examples/sample.yaml"]
@@ -23,3 +21,13 @@ def test_validate_sample():
 
     assert result.exit_code == 0
     assert "Configuration is valid" in result.stdout
+
+
+def test_invalid_file():
+    result = runner.invoke(
+        app,
+        ["validate", "examples/missing.yaml"]
+    )
+
+    assert result.exit_code == 0
+    assert "Error" in result.stdout
