@@ -21,6 +21,7 @@ AutoDevOps is a Python-based Infrastructure as Code (IaC) automation tool that h
 
 ## Project Structure
 
+
 AutoDevOps/
 ├── cli/
 │   ├── __init__.py
@@ -72,6 +73,7 @@ AutoDevOps/
 ├── main.py
 ├── requirements.txt
 └── README.md
+
 
 ## Technologies Used
 
