@@ -22,7 +22,6 @@ AutoDevOps is a Python-based Infrastructure as Code (IaC) automation tool that h
 ## Project Structure
 
 AutoDevOps/
-│
 ├── cli/
 │   ├── __init__.py
 │   └── cli.py
@@ -30,8 +29,7 @@ AutoDevOps/
 ├── parser/
 │   ├── __init__.py
 │   ├── yaml_parser.py
-│   ├── config_loader.py
-│   └── config_summary.py
+│   └── config_loader.py
 │
 ├── schemas/
 │   ├── __init__.py
@@ -40,31 +38,24 @@ AutoDevOps/
 ├── generators/
 │   ├── __init__.py
 │   ├── terraform_generator.py
-│   ├── ansible_generator.py
-│   └── output_manager.py
+│   └── ansible_generator.py
 │
 ├── executor/
 │   ├── __init__.py
 │   ├── command_runner.py
 │   ├── execution_result.py
 │   ├── terraform_executor.py
-│   ├── ansible_executor.py
-│   └── deployment_manager.py
+│   └── ansible_executor.py
+│
+├── output/
+│   └── output_manager.py
 │
 ├── logs/
-│   ├── __init__.py
+│   ├── deployment_manager.py
 │   └── logger.py
-│
-├── templates/
-│   ├── terraform/
-│   └── ansible/
 │
 ├── examples/
 │   └── sample.yaml
-│
-├── output/
-│   ├── terraform/
-│   └── ansible/
 │
 ├── tests/
 │   ├── test_validator.py
@@ -76,11 +67,8 @@ AutoDevOps/
 │   ├── test_execution_result.py
 │   ├── test_config_loader.py
 │   ├── test_output_manager.py
-│   ├── test_ansible_executor.py
-│   ├── test_config_summary.py
 │   └── test_health_check.py
 │
-├── health_check.py
 ├── main.py
 ├── requirements.txt
 └── README.md
@@ -192,4 +180,5 @@ AutoDevOps v1.0.0
 
 ### Aman Sharma
 
-B.Tech Computer Science & Engineering
+
+
