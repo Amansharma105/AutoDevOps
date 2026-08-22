@@ -1,11 +1,16 @@
+
 import typer
 
 from parser.yaml_parser import load_yaml
 from schemas.validator import validate_config
+
 from generators.terraform_generator import TerraformGenerator
 from generators.ansible_generator import AnsibleGenerator
+
 from executor.deployment_manager import DeploymentManager
+
 from logs.logger import get_logger
+
 
 app = typer.Typer(
     help="AutoDevOps - Infrastructure as Code Generator & Cloud Deployer"
@@ -33,6 +38,7 @@ def validate(file: str):
                 f"✗ {message}",
                 fg=typer.colors.RED
             )
+            logger.error("Validation failed: %s", file)
 
     except (FileNotFoundError, ValueError) as error:
         typer.secho(
@@ -46,7 +52,7 @@ def generate(
     file: str,
     target: str = typer.Option(
         "terraform",
-        help="Target: terraform or ansible"
+        help="Target generator: terraform or ansible"
     )
 ):
     """Generate Infrastructure as Code."""
@@ -71,7 +77,7 @@ def generate(
 
         else:
             typer.secho(
-                "✗ Unsupported target.",
+                "✗ Unsupported target. Use terraform or ansible.",
                 fg=typer.colors.RED
             )
             return
@@ -84,7 +90,7 @@ def generate(
         )
 
         logger.info(
-            "Generated %s: %s",
+            "Generated %s configuration: %s",
             target,
             output_file
         )
@@ -106,14 +112,14 @@ def terraform_validate(
 
     result = manager.validate_terraform(directory)
 
-    if result["returncode"] == 0:
+    if result.success:
         typer.secho(
             "✓ Terraform configuration is valid.",
             fg=typer.colors.GREEN
         )
     else:
         typer.secho(
-            result["stderr"],
+            result.stderr,
             fg=typer.colors.RED
         )
 
@@ -128,11 +134,12 @@ def terraform_plan(
 
     result = manager.plan_terraform(directory)
 
-    typer.echo(result["stdout"])
+    if result.stdout:
+        typer.echo(result.stdout)
 
-    if result["returncode"] != 0:
+    if not result.success:
         typer.secho(
-            result["stderr"],
+            result.stderr,
             fg=typer.colors.RED
         )
 
