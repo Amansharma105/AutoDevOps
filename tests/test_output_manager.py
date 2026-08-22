@@ -9,3 +9,4 @@ def test_output_manager(tmp_path):
 
     assert directory.exists()
     assert directory.name == "terraform"
+    
