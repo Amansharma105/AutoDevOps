@@ -12,7 +12,6 @@ class CommandRunner:
         try:
             result = subprocess.run(
                 command,
-                shell=True,
                 capture_output=True,
                 text=True,
                 check=False
